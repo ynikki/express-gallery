@@ -31,52 +31,51 @@ app.get('/', function (req, res) {
 });
 
 app.get('/gallery', function (req, res) {
-  res.send('What');
-});
 
-app.param('gallery', function (req, res, next, id) {
-  Gallery.find(id, function (err, gallery) {
-    if (err) {
-      next(err);
-    } else if (gallery) {
-      req.gallery = gallery;
-      next();
-    } else {
-      next(new Error('failed to load user'));
-    }
+  req.param('gallery', function (req, res, next, id) {
+    Gallery.find(id, function (err, gallery) {
+      if (err) {
+        next(err);
+      } else if (gallery) {
+        req.gallery = gallery;
+        next();
+      } else {
+        next(new Error('failed to load user'));
+      }
+    });
   });
 });
 
-app.param('id', function (req, res, next, id) {
-  next();
-});
-
 app.get('/gallery/:id(\\d+)/', function (req, res, next) {
+  res.send('gallery ' + req.params.id);
+  console.log(req.params);
   next();
-});
-
-app.get('/gallery/:id(\\d+)', function (req, res) {
   res.end();
 });
   
 app.get('/gallery/new', function (req, res) {
-  req.on('data', function (data) {
-    var newForms = querystring.parse(data.toString());
-    Form.create(newForms, function (err, result) {
-      if (err) {
-        throw err;
-      }
-      res.render('new', newForms);
-    });
-    res.write();
-    res.end(util.inspect({
-      fields: fields,
-      files: files
-    }));
-  });
+  response = {
+    author: req.query.author,
+    link: req.query.link,
+    description: req.query.link
+  }
+
+  console.log(response);
+  res.end(JSON.stringify(response));
+  // req.on('data', function (data) {
+    // var newForms = querystring.parse(data.toString());
+    // Form.create(newForms, function (err, result) {
+    //   if (err) {
+    //     throw err;
+    //   }
+    //   res.render('new', locals);
+    // });
+    // res.write();
+    // res.end(util.inspect({
+    //   fields: fields,
+    // }));
+  // });
 });
-
-
 
 app.get('gallery/:id/edit', function (req, res) {
 
@@ -92,7 +91,6 @@ app.post('/gallery', function (req, res) {
       res.render('gallery', locals);
     });
   });
-  // res.send('POST');
 });
 
 app.put('/gallery/:id', function (req, res) {
@@ -102,14 +100,3 @@ app.put('/gallery/:id', function (req, res) {
 app.delete('/gallery/:id', function (req, res) {
   res.send('Delete');
 });
-
-app.route('/gallery')
-  .get( function (req, res) {
-    res.send('Get a photo');
-  })
-  .post( function (req, res) {
-    res.send('Add a photo');
-  })
-  .post( function (req, res) {
-    res.send('Update a photo');
-  });
