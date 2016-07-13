@@ -5,10 +5,12 @@ var express = require('express');
 var app = express();
 var gallery = require('./routes/gallery');
 var path = require('path'); // absolute path.
+var util = require('util');
 
 var querystring = require('querystring');
 
 var Gallery = require('./Gallery');
+var Form = require('./Form');
 
 var server = app.listen(CONFIG.PORT, function () {
   var host = server.address().address;
@@ -31,15 +33,49 @@ app.get('/', function (req, res) {
 app.get('/gallery', function (req, res) {
   res.send('What');
 });
-  
-app.get('/gallery/new', function (req, res) {
-    console.log(req);
-    // res.send('New');
+
+app.param('gallery', function (req, res, next, id) {
+  Gallery.find(id, function (err, gallery) {
+    if (err) {
+      next(err);
+    } else if (gallery) {
+      req.gallery = gallery;
+      next();
+    } else {
+      next(new Error('failed to load user'));
+    }
+  });
 });
 
-app.get('/gallery/:id(\\d+)/', function (req, res) {
-    res.send('BUH');
+app.param('id', function (req, res, next, id) {
+  next();
 });
+
+app.get('/gallery/:id(\\d+)/', function (req, res, next) {
+  next();
+});
+
+app.get('/gallery/:id(\\d+)', function (req, res) {
+  res.end();
+});
+  
+app.get('/gallery/new', function (req, res) {
+  req.on('data', function (data) {
+    var newForms = querystring.parse(data.toString());
+    Form.create(newForms, function (err, result) {
+      if (err) {
+        throw err;
+      }
+      res.render('new', newForms);
+    });
+    res.write();
+    res.end(util.inspect({
+      fields: fields,
+      files: files
+    }));
+  });
+});
+
 
 
 app.get('gallery/:id/edit', function (req, res) {
