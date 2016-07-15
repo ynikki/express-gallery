@@ -5,7 +5,7 @@ var JSON_DATA_PATH = path.resolve('data', 'gallery.json');
 function find(id, callback) {
   callback(null, {
     author: 'poop',
-    url: 'www.blah.com',
+    url: 'http://lorempixel.com/400/200/',
     description: 'ideekay'
   });
 }

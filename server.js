@@ -8,7 +8,7 @@ var path = require('path'); // absolute path.
 var util = require('util');
 var bodyParser = require('body-parser');
 
-var querystring = require('querystring');
+// var querystring = require('querystring');
 
 var Gallery = require('./Gallery');
 var Form = require('./Form');
@@ -20,7 +20,7 @@ var server = app.listen(CONFIG.PORT, function () {
   console.log('Connected to http://', host, port);
 });
 
-app.use(bodyParser.urlencoded({ extended: true}));
+app.use(bodyParser.urlencoded({ extended: false}));
 
 // allows you to save value to your configuration.
 app.set('views', path.resolve(__dirname, 'views'));
@@ -32,7 +32,7 @@ app.get('/', function (req, res) {
   res.send('Hello');
 });
 
-app.get('/gallery/:id', function (req, res) {
+app.get('/gallery/:id(\\d+)/', function (req, res) {
   var id = req.params.id;
 
   Gallery.find(id, function (err, gallery) {
@@ -46,53 +46,23 @@ app.get('/gallery/:id', function (req, res) {
   });
 });
 
-// app.get('/gallery/:id(\\d+)/', function (req, res, next) {
-//   res.send('gallery ' + req.params.id);
-//   console.log(req.params);
-//   next();
-//   res.end();
-// });
-  
-// app.get('/gallery/new', function (req, res) {
-//   response = {
-//     author: req.query.author,
-//     link: req.query.link,
-//     description: req.query.link
-//   }
+app.get('/gallery/new', function (req, res, next) {
+  res.render('form', req.body);
+  console.log(req.params);
+  next();
+});
 
-//   console.log(response);
-//   res.end(JSON.stringify(response));
-  
-  // req.on('data', function (data) {
-    // var newForms = querystring.parse(data.toString());
-    // Form.create(newForms, function (err, result) {
-    //   if (err) {
-    //     throw err;
-    //   }
-    //   res.render('new', locals);
-    // });    1`  
-    // res.write();
-    // res.end(util.inspect({
-    //   fields: fields,
-    // }));
-  // });
-// });
-
-// app.get('gallery/:id/edit', function (req, res) {
-
-// });
-
-// app.post('/gallery', function (req, res) {
-//   req.on('data', function (data) {
-//     var locals = querystring.parse(data.toString());
-//     Gallery.create(locals, function (err, result) {
-//       if (err) {
-//         throw err;
-//       }
-//       res.render('gallery', locals);
-//     });
-//   });
-// });
+app.post('/gallery', function (req, res) {
+  req.on('data', function (data) {
+    // var locals = querystring.parse(data.toString());
+    Gallery.create(req.body, function (err, result) {
+      if (err) {
+        throw err;
+      }
+      res.render('gallery', req.body);
+    });
+  });
+});
 
 // app.put('/gallery/:id', function (req, res) {
 //   res.send('Put');
