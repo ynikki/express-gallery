@@ -14,7 +14,5 @@ function newForms (data, callback) {
     var forms = JSON.parse(json);
     forms.push(data);
     fs.writeFile(JSON_DATA_PATH, JSON.stringify(forms), callback);
-    fs.end(util.inspect({
-    }));
   });
 }

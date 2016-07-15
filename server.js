@@ -53,14 +53,12 @@ app.get('/gallery/new', function (req, res, next) {
 });
 
 app.post('/gallery', function (req, res) {
-  req.on('data', function (data) {
     // var locals = querystring.parse(data.toString());
-    Gallery.create(req.body, function (err, result) {
-      if (err) {
-        throw err;
-      }
-      res.render('gallery', req.body);
-    });
+  Gallery.create(req.body, function (err, result) {
+    if (err) {
+      throw err;
+    }
+    res.render('gallery', req.body);
   });
 });
 
