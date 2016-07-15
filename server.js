@@ -47,9 +47,7 @@ app.get('/gallery/:id(\\d+)/', function (req, res) {
 });
 
 app.get('/gallery/new', function (req, res, next) {
-  res.render('form', req.body);
-  console.log(req.params);
-  next();
+  res.render('form');
 });
 
 app.post('/gallery', function (req, res) {
