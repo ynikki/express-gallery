@@ -2,8 +2,17 @@ var fs = require('fs');
 var path = require('path');
 var JSON_DATA_PATH = path.resolve('data', 'gallery.json');
 
+function find(id, callback) {
+  callback(null, {
+    author: 'poop',
+    url: 'www.blah.com',
+    description: 'ideekay'
+  });
+}
+
 module.exports = {
-  create: addGallery
+  create: addGallery,
+  find // use instead of find:find
 };
 
 function addGallery(data, callback) {

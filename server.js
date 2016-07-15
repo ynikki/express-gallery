@@ -6,6 +6,7 @@ var app = express();
 var gallery = require('./routes/gallery');
 var path = require('path'); // absolute path.
 var util = require('util');
+var bodyParser = require('body-parser');
 
 var querystring = require('querystring');
 
@@ -19,49 +20,49 @@ var server = app.listen(CONFIG.PORT, function () {
   console.log('Connected to http://', host, port);
 });
 
+app.use(bodyParser.urlencoded({ extended: true}));
+
 // allows you to save value to your configuration.
 app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(express.static('public'));
-app.use('/gallery', gallery);
 
 app.get('/', function (req, res) {
   res.send('Hello');
 });
 
-app.get('/gallery', function (req, res) {
+app.get('/gallery/:id', function (req, res) {
+  var id = req.params.id;
 
-  req.param('gallery', function (req, res, next, id) {
-    Gallery.find(id, function (err, gallery) {
-      if (err) {
-        next(err);
-      } else if (gallery) {
-        req.gallery = gallery;
-        next();
-      } else {
-        next(new Error('failed to load user'));
-      }
-    });
+  Gallery.find(id, function (err, gallery) {
+    if (err) {
+      res.send(err);
+    } else if (gallery) {
+      res.render('gallery', gallery);
+    } else {
+      res.send(new Error('failed to load gallery'));
+    }
   });
 });
 
-app.get('/gallery/:id(\\d+)/', function (req, res, next) {
-  res.send('gallery ' + req.params.id);
-  console.log(req.params);
-  next();
-  res.end();
-});
+// app.get('/gallery/:id(\\d+)/', function (req, res, next) {
+//   res.send('gallery ' + req.params.id);
+//   console.log(req.params);
+//   next();
+//   res.end();
+// });
   
-app.get('/gallery/new', function (req, res) {
-  response = {
-    author: req.query.author,
-    link: req.query.link,
-    description: req.query.link
-  }
+// app.get('/gallery/new', function (req, res) {
+//   response = {
+//     author: req.query.author,
+//     link: req.query.link,
+//     description: req.query.link
+//   }
 
-  console.log(response);
-  res.end(JSON.stringify(response));
+//   console.log(response);
+//   res.end(JSON.stringify(response));
+  
   // req.on('data', function (data) {
     // var newForms = querystring.parse(data.toString());
     // Form.create(newForms, function (err, result) {
@@ -69,34 +70,34 @@ app.get('/gallery/new', function (req, res) {
     //     throw err;
     //   }
     //   res.render('new', locals);
-    // });
+    // });    1`  
     // res.write();
     // res.end(util.inspect({
     //   fields: fields,
     // }));
   // });
-});
+// });
 
-app.get('gallery/:id/edit', function (req, res) {
+// app.get('gallery/:id/edit', function (req, res) {
 
-});
+// });
 
-app.post('/gallery', function (req, res) {
-  req.on('data', function (data) {
-    var locals = querystring.parse(data.toString());
-    Gallery.create(locals, function (err, result) {
-      if (err) {
-        throw err;
-      }
-      res.render('gallery', locals);
-    });
-  });
-});
+// app.post('/gallery', function (req, res) {
+//   req.on('data', function (data) {
+//     var locals = querystring.parse(data.toString());
+//     Gallery.create(locals, function (err, result) {
+//       if (err) {
+//         throw err;
+//       }
+//       res.render('gallery', locals);
+//     });
+//   });
+// });
 
-app.put('/gallery/:id', function (req, res) {
-  res.send('Put');
-});
+// app.put('/gallery/:id', function (req, res) {
+//   res.send('Put');
+// });
 
-app.delete('/gallery/:id', function (req, res) {
-  res.send('Delete');
-});
+// app.delete('/gallery/:id', function (req, res) {
+//   res.send('Delete');
+// });
