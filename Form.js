@@ -16,3 +16,9 @@ function newForms (data, callback) {
     fs.writeFile(JSON_DATA_PATH, JSON.stringify(forms), callback);
   });
 }
+
+// function add(){
+//   var num = document.getElementById("submit").value;
+//   if(num === '')num=0;
+//   document.getElementById("submit").value = parseInt(num, 10)+1;
+// }
