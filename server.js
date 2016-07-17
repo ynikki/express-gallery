@@ -75,9 +75,9 @@ app.post('/gallery', function (req, res) {
   });
 });
 
-app.put('/gallery/:id', function (req, res) {
-  res.send('');
-});
+// app.put('/gallery/:id', function (req, res) {
+//   res.send('');
+// });
 
 // app.delete('/gallery/:id', function (req, res) {
 //   res.send('Delete');

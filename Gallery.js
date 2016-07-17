@@ -13,7 +13,10 @@ function find(id, callback) {
 
     var gallerycontents = JSON.parse(json);
     var match = null;
+    // match has to be null.
+    // null is a default for empty.
     id = parseInt(id);
+    // id is a string, and we want it to be a number.
     for(var i=0; i<gallerycontents.length; i++){
       if(id === gallerycontents[i].id){
         match = gallerycontents[i];
