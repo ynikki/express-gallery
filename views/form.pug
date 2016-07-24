@@ -3,6 +3,7 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     title Express Gallery
+    link(rel="stylesheet" type="text/css" href="/css/styles.css")
   body
     form(action="/gallery" method="POST" enctype="x-www-form-urlencoded")
       fieldset
@@ -17,4 +18,4 @@ html(lang="en")
           input(type="text" id="description" name="description" placeholder="Enter a short description about the photo")
         br
         br
-        input(type="submit" id="submit" value="Submit" onclick="add()")
+        input(type="submit" id="submit" value="Submit")

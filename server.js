@@ -1,3 +1,4 @@
+var db = require('./models');
 var CONFIG = require('./config');
 
 var pug = require('pug');
@@ -17,6 +18,7 @@ var Form = require('./Form');
 var server = app.listen(CONFIG.PORT, function () {
   var host = server.address().address;
   var port = server.address().port;
+  db.sequelize.sync();
 
   console.log('Connected to http://', host, port);
 });
@@ -41,7 +43,16 @@ app.get('/', function (req, res) {
   // get is the rendering of the page.
   // there is no req.body for get.
   var galleryContents = require('./data/gallery');
-  res.render('index', {contents: galleryContents});
+  Gallery.display(function (err, result) {
+    if (err) throw err;
+    else{
+      res.render('index', {contents: galleryContents});
+    }
+  });
+});
+
+app.get('/gallery/new', function (req, res, next) {
+  res.render('form');
 });
 
 app.get('/gallery/:id', function (req, res) {
@@ -58,10 +69,6 @@ app.get('/gallery/:id', function (req, res) {
   });
 });
 
-app.get('/gallery/new', function (req, res, next) {
-  res.render('form');
-});
-
 app.post('/gallery', function (req, res) {
   // form data is the req.body(client side).
   Gallery.create(req.body, function (err, result) {
@@ -75,9 +82,9 @@ app.post('/gallery', function (req, res) {
   });
 });
 
-app.put('/gallery/:id', function (req, res) {
-  res.send('');
-});
+// app.put('/gallery/:id', function (req, res) {
+//   res.send('');
+// });
 
 // app.delete('/gallery/:id', function (req, res) {
 //   res.send('Delete');

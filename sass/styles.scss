@@ -1,0 +1,38 @@
+@import "sass/reset";
+@import "sass/clearfix";
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:900);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400);
+
+$roboto-bold: 'Roboto', sans-serif;
+$roboto-reg: 'Roboto', sans-serif;
+
+$small: "(min-width: 200px) and (max-width: 600px)";
+$medium: "(min-width: 600px) and (max-width: 900px)";
+$large: "(min-width: 900px)";
+
+$header-color: #7d787e;
+$para-color: #c7c7c7;
+
+body {
+  .dash{
+    border: 0 none;
+    border-top: 1px dotted $header-color;
+    background: none;
+    height: 0;
+    margin-left: 6em;
+    margin-right: 6em;
+    margin-top: 4em;
+  }
+  h1 {
+    font-family: $roboto-bold;
+    color: $header-color;
+    font-size: 5em;
+    margin: .2em;
+    margin-left: 1.1em;
+  }
+  p{
+    font-family: $roboto-reg;
+    color: $para-color;
+  }
+}

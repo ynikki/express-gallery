@@ -13,7 +13,10 @@ function find(id, callback) {
 
     var gallerycontents = JSON.parse(json);
     var match = null;
+    // match has to be null.
+    // null is a default for empty.
     id = parseInt(id);
+    // id is a string, and we want it to be a number.
     for(var i=0; i<gallerycontents.length; i++){
       if(id === gallerycontents[i].id){
         match = gallerycontents[i];
@@ -27,7 +30,8 @@ function find(id, callback) {
 
 module.exports = {
   create: addGallery,
-  find // use instead of find:find
+  find, // use instead of find:find
+  display: displayGallery
 };
 
 function addGallery(formData, callback) {
@@ -46,5 +50,17 @@ function addGallery(formData, callback) {
     // bind returns a function, as oppose to calling a function.
     // pass functions around & give it arguements.
     // pass ID to result.
+  });
+}
+
+function displayGallery(callback) {
+  fs.readFile(JSON_DATA_PATH, 'utf8', function (err, json) {
+    if (err) throw err;
+    var galleries = JSON.parse(json);
+    if (galleries === undefined){
+      callback(true);
+    } else {
+      callback(null, galleries);
+    }
   });
 }
