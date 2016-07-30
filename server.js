@@ -54,9 +54,9 @@ app.get('/gallery/new', function (req, res, next) {
 });
 
 app.get('/gallery/:id', function (req, res) {
-  var id = req.params.id;
+  // var id = req.params.id;
   //var id = photos.id;
-  console.log(id);
+  // console.log(id);
 
   // Gallery.find(id, function (err, gallery) {
   //   if (err) {
@@ -74,7 +74,7 @@ app.get('/gallery/:id', function (req, res) {
     }
   })
   .then(function(photo) {
-    res.render('gallery', {photo:photo});
+    res.render('gallery', {photo: photo});
   })
   // .then(id, function (err, gallery) {
   //   if (err) {
@@ -89,14 +89,22 @@ app.get('/gallery/:id', function (req, res) {
 
 app.post('/gallery', function (req, res) {
   // form data is the req.body(client side).
-  Gallery.create(req.body, function (err, result) {
-    if (err) {
-      throw err;
-    }
-    res.redirect('/gallery/' + result.id);
+  // Gallery.create(req.body, function (err, result) {
+  //   if (err) {
+  //     throw err;
+  //   }
+  //   res.redirect('/gallery/' + result.id);
     // redirecting on post, because you want it to go to the get.
     // executing it's code on the other route.
     // don't want to repeat everything in a code.
+  // });
+  db.photo.create({
+    author: req.body.author,
+    url: req.body.url,
+    description: req.body.description
+  })
+  .then(function(photo) {
+    res.render ('gallery', {photo: photo});
   });
 });
 

@@ -1,0 +1,209 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+@import url(https://fonts.googleapis.com/css?family=Roboto:500);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400);
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0; }
+
+.clearfix {
+  display: inline-block; }
+
+/* start commented backslash hack \*/
+* html .clearfix {
+  height: 1%; }
+
+.clearfix {
+  display: block; }
+
+/* close commented backslash hack */
+body .page-wrap {
+  display: block;
+  margin: 5em 20% 5em 20%;
+  align-content: space-between; }
+
+body .contain {
+  margin-top: 1em;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between; }
+
+body .dash {
+  border: 0 none;
+  border-top: 1px dotted #c7c7c7;
+  background: none;
+  height: 0; }
+  @media (min-width: 100px) and (max-width: 600px) {
+    body .dash {
+      display: none; } }
+
+body .firstLine, body .secondLine, body .thirdLine {
+  border: 0 none;
+  border-top: 1px solid #c7c7c7;
+  background: none;
+  height: 0; }
+
+body .header {
+  font-family: "Roboto", sans-serif;
+  color: #7d787e;
+  font-weight: 500;
+  font-size: 4em;
+  letter-spacing: .05em;
+  box-sizing: border-box;
+  flex: 1 1 auto;
+  float: left; }
+
+body .paraIntro {
+  height: 5em;
+  width: 14em;
+  line-height: .7em;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  float: right; }
+  @media screen and (max-width: 1045px) {
+    body .paraIntro {
+      display: none; } }
+  @media (min-width: 100px) and (max-width: 600px) {
+    body .paraIntro {
+      display: none; } }
+
+body .intro {
+  font-family: "Roboto", sans-serif;
+  font-size: .15em;
+  color: #c7c7c7;
+  border-left: 0.1em solid #c7c7c7;
+  padding-left: 1em; }
+  @media (min-width: 100px) and (max-width: 600px) {
+    body .intro {
+      display: none; } }
+
+body .mainImg {
+  margin-top: 1em; }
+
+body .multImg {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between; }
+
+body .gallery_post {
+  width: 300px; }
+
+body .bottomMultiImg {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between; }
+
+body .gallery_posttwo {
+  width: 300px; }
+
+body .contentImg {
+  display: flex;
+  box-sizing: border-box;
+  margin-top: 2em;
+  justify-content: center; }
+
+body img {
+  width: 100%; }
+
+body .imgDescrip {
+  font-family: "Roboto", sans-serif;
+  color: #c7c7c7;
+  font-size: .8em;
+  margin: 2em; }
+
+body .formDescrip {
+  display: flex;
+  position: center;
+  justify-content: center;
+  margin: 8em; }
+
+body legend {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.5em;
+  color: #c7c7c7;
+  margin-bottom: .3em; }
+
+body label {
+  font-family: "Roboto", sans-serif;
+  font-size: .8em;
+  color: #c7c7c7; }
+
+body input {
+  margin-bottom: .1em; }
+
+body .name, body .link {
+  font-family: "Roboto", sans-serif;
+  font-size: .9em;
+  color: #c7c7c7;
+  height: 2em;
+  width: 50em; }
+
+body .description {
+  font-family: "Roboto", sans-serif;
+  font-size: .9em;
+  color: #c7c7c7;
+  overflow: auto;
+  vertical-align: top;
+  width: 100%; }
+
+body .submit {
+  font-family: "Roboto", sans-serif;
+  font-size: 1em;
+  color: #c7c7c7;
+  width: 36.5em;
+  height: 2em;
+  border-radius: .2em;
+  background-color: #fff; }
+
+body .submit:hover {
+  background-color: #c7c7c7;
+  color: #fff; }
