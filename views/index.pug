@@ -5,7 +5,29 @@ html(lang="en")
     title Express Gallery
     link(rel="stylesheet" type="text/css" href="/css/styles.css")
   body
-    hr(class="dash")
-    h1 _ARCHITEKT
-
+    div(class="page-wrap")
+      hr(class="dash")
+      div(class="contain")
+        div(class="header")
+          h1 _ARCHITEKT
+        div(class="paraIntro")
+          p(class="intro") Welcome to our online portfolio, we are small group of passionate designers and architects, looking to change and create amazing digital images to inspire others to follow in our innovative steps. Free Architect WordPress Theme
+      div(class="mainImg")
+        img(src=photos[0].url)
+      hr(class="firstLine")
+      div(class="multImg")
+        -var i=1
+        //- each val, index in photos
+        while i < 4
+          div(class="gallery_post")
+            img(src=photos[i].url)
+            -i++
+      hr(class="secondLine")
+      div(class="bottomMultiImg") 
+        -var j=0
+        while j < 3
+          div(class="gallery_posttwo")
+            img(src=photos[i].url)
+            -j++  
+      hr(class="thirdLine")
 

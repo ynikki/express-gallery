@@ -5,17 +5,28 @@ html(lang="en")
     title Express Gallery
     link(rel="stylesheet" type="text/css" href="/css/styles.css")
   body
-    form(action="/gallery" method="POST" enctype="x-www-form-urlencoded")
-      fieldset
-        legend Gallery Info:
-        label Name: 
-          input(type="text" id="name" name="author" placeholder="Enter your full name")
-        br
-        label Link: 
-          input(type="text" id="link" name="url" placeholder="Place the link for the image")
-        br
-        label Description: 
-          input(type="text" id="description" name="description" placeholder="Enter a short description about the photo")
-        br
-        br
-        input(type="submit" id="submit" value="Submit")
+    div(class="page-wrap")
+      hr(class="dash")
+      div(class="contain")
+        div(class="header")
+          h1 _ARCHITEKT
+        div(class="paraIntro")
+          p(class="intro") Welcome to our online portfolio, we are small group of passionate designers and architects, looking to change and create amazing digital images to inspire others to follow in our innovative steps. Free Architect WordPress Theme
+      div(class="formDescrip")
+        form(action="/gallery" method="POST" enctype="x-www-form-urlencoded")
+          fieldset
+            legend Gallery Info:
+            label Name:
+              br 
+              input(type="text" class="name" name="author" placeholder="Enter your full name")
+            br
+            label Link:
+              br 
+              input(type="text" class="link" name="url" placeholder="Place the link for the image")
+            br
+            label Description: 
+              br
+              input(type="textarea" cols="100" row="10" class="description" name="description" placeholder="Enter a short description about the photo" style="width:50em; height:6em")
+            br
+            br
+            input(type="submit" class="submit" value="Submit")

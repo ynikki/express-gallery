@@ -31,7 +31,7 @@ function find(id, callback) {
 module.exports = {
   create: addGallery,
   find, // use instead of find:find
-  display: displayGallery
+  display
 };
 
 function addGallery(formData, callback) {
@@ -53,9 +53,11 @@ function addGallery(formData, callback) {
   });
 }
 
-function displayGallery(callback) {
+function display(callback) {
   fs.readFile(JSON_DATA_PATH, 'utf8', function (err, json) {
-    if (err) throw err;
+    if (err) {
+      throw err;
+    }
     var galleries = JSON.parse(json);
     if (galleries === undefined){
       callback(true);

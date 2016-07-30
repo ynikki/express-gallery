@@ -1,38 +1,194 @@
 @import "sass/reset";
 @import "sass/clearfix";
 
-@import url(https://fonts.googleapis.com/css?family=Roboto:900);
+@import url(https://fonts.googleapis.com/css?family=Roboto:500);
 @import url(https://fonts.googleapis.com/css?family=Roboto:400);
 
-$roboto-bold: 'Roboto', sans-serif;
-$roboto-reg: 'Roboto', sans-serif;
+$roboto: 'Roboto', sans-serif;
 
-$small: "(min-width: 200px) and (max-width: 600px)";
-$medium: "(min-width: 600px) and (max-width: 900px)";
+$small: "(min-width: 100px) and (max-width: 600px)";
+$medium: "(min-width: 601px) and (max-width: 900px)";
 $large: "(min-width: 900px)";
 
 $header-color: #7d787e;
 $para-color: #c7c7c7;
 
+@mixin small{
+  @media #{$small} {
+    @content;
+  }
+}
+
+@mixin medium{
+  @media #{$medium} {
+    @content;
+  }
+}
+
+@mixin large{
+  @media #{$large} {
+    @content;
+  }
+}
+
 body {
+  .page-wrap{
+    display: block;
+    margin: 5em 20% 5em 20%;
+    align-content: space-between;
+  }
+  .contain{
+    margin-top: 1em;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
   .dash{
     border: 0 none;
-    border-top: 1px dotted $header-color;
+    border-top: 1px dotted $para-color;
     background: none;
     height: 0;
-    margin-left: 6em;
-    margin-right: 6em;
-    margin-top: 4em;
+
+    @include small{
+      display: none;
+    }
   }
-  h1 {
-    font-family: $roboto-bold;
+  .firstLine, .secondLine, .thirdLine{
+    border: 0 none;
+    border-top: 1px solid $para-color;
+    background: none;
+    height: 0;
+  }
+  .header{
+    font-family: $roboto;
     color: $header-color;
-    font-size: 5em;
-    margin: .2em;
-    margin-left: 1.1em;
+    font-weight: 500;
+    font-size: 4em;
+    letter-spacing: .05em;
+    box-sizing: border-box;
+    flex: 1 1 auto;
+    float: left;
+
+    @media screen and (max-width:1045px) {
+    }
   }
-  p{
-    font-family: $roboto-reg;
+  .paraIntro{
+    height: 5em;
+    width: 14em;
+    line-height: .7em;
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    float: right;
+
+    @media screen and (max-width:1045px) {
+      display: none;
+    }
+
+    @include small{
+      display: none;
+    }
+  }
+  .intro{
+    font-family: $roboto;
+    font-size: .15em;
     color: $para-color;
+    border-left: .1em solid $para-color;
+    padding-left: 1em;
+
+    @include small{
+      display: none; 
+    }
+  }
+  .mainImg{
+    margin-top: 1em;
+  }
+  .multImg{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
+  .gallery_post{
+    width: 220px;
+  }
+  .bottomMultiImg{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
+  .gallery_posttwo{
+    width: 220px;
+  }
+  .contentImg{
+    //padding: 3em;
+    display: flex;
+    box-sizing: border-box;
+    // align-self: flex-start;
+    // align-items: center;
+    // justify-content: center;
+    margin-top: 2em;
+    justify-content: center;
+  }
+  img{
+    width: 100%;
+  }
+  .imgDescrip{
+    font-family: $roboto;
+    color: $para-color;
+    font-size: .8em;
+    margin: 2em;
+  }
+  .formDescrip{
+    display: flex;
+    //align-content: center;
+    position: center;
+    //box-sizing: border-box;
+    justify-content: center;
+    margin: 8em;
+  }
+  legend{
+    font-family: $roboto;
+    font-size: 1.5em;
+    color: $para-color;
+    margin-bottom: .3em;
+  }
+  label{
+    font-family: $roboto;
+    font-size: .8em;
+    color: $para-color;
+  }
+  input{
+    margin-bottom: .1em;
+  }
+  .name, .link{
+    font-family: $roboto;
+    font-size: .9em;
+    color: $para-color;
+    height: 2em;
+    width: 50em;
+  } 
+  .description{
+    font-family: $roboto;
+    font-size: .9em;
+    color: $para-color;
+    // height: 6em;
+    // width: 50em;
+    overflow: auto;
+    vertical-align: top;
+    width: 100%;
+  }
+  textarea{
+  }
+  .submit{
+    font-family: $roboto;
+    font-size: 1em;
+    color: $para-color;
+    width: 36.5em;
+    height: 2em;
+    border-radius: .2em;
+    background-color: #fff;
+  }
+  .submit:hover{
+    background-color: $para-color;
+    color: #fff;
   }
 }

@@ -15,14 +15,6 @@ var methodOverride = require('method-override');
 var Gallery = require('./Gallery');
 var Form = require('./Form');
 
-var server = app.listen(CONFIG.PORT, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-  db.sequelize.sync();
-
-  console.log('Connected to http://', host, port);
-});
-
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(methodOverride(function(req, res){
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
@@ -42,31 +34,57 @@ app.use(express.static('public'));
 app.get('/', function (req, res) {
   // get is the rendering of the page.
   // there is no req.body for get.
-  var galleryContents = require('./data/gallery');
-  Gallery.display(function (err, result) {
-    if (err) throw err;
-    else{
-      res.render('index', {contents: galleryContents});
-    }
+  //var galleryContents = require('./data/gallery');
+  // Gallery.display(function (err, result) {
+  //   if (err) throw err;
+  //   else{
+  //     res.render('index', {result: result});
+  //   }
+  // });
+  db.photo.findAll()
+  .then(function (photos) {
+    return res.render('index', {photos: photos})
   });
 });
 
 app.get('/gallery/new', function (req, res, next) {
-  res.render('form');
+  // db.photo.update().then( function (form) { 
+    res.render('form');
+  // });
 });
 
 app.get('/gallery/:id', function (req, res) {
   var id = req.params.id;
+  //var id = photos.id;
+  console.log(id);
 
-  Gallery.find(id, function (err, gallery) {
-    if (err) {
-      res.send(err);
-    } else if (gallery) {
-      res.render('gallery', gallery);
-    } else {
-      res.send(new Error('Gallery not found for this id.'));
+  // Gallery.find(id, function (err, gallery) {
+  //   if (err) {
+  //     res.send(err);
+  //   } else if (gallery) {
+  //     res.render('gallery', gallery);
+  //   } else {
+  //     res.send(new Error('Gallery not found for this id.'));
+  //   }
+  // });  
+  // db.photo.findAll()
+  db.photo.findOne({
+    where: {
+      id: req.params.id
     }
-  });
+  })
+  .then(function(photo) {
+    res.render('gallery', {photo:photo});
+  })
+  // .then(id, function (err, gallery) {
+  //   if (err) {
+  //     res.send(err);
+  //   } else if (gallery) {
+  //     res.render('gallery', gallery)
+  //   } else {
+  //     res.send(new Error('Gallery not found for this id.'));
+  //   }
+  // });
 });
 
 app.post('/gallery', function (req, res) {
@@ -89,3 +107,11 @@ app.post('/gallery', function (req, res) {
 // app.delete('/gallery/:id', function (req, res) {
 //   res.send('Delete');
 // });
+
+var server = app.listen(CONFIG.PORT, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+  db.sequelize.sync();
+
+  console.log('Connected to http://', host, port);
+});

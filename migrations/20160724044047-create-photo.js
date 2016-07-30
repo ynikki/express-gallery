@@ -17,11 +17,11 @@ module.exports = {
       description: {
         type: Sequelize.STRING
       },
-      createdAt: {
+      "createdAt": {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      "updatedAt": {
         allowNull: false,
         type: Sequelize.DATE
       }
