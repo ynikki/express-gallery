@@ -138,12 +138,12 @@ body {
     margin: 2em;
   }
   .formDescrip{
-    display: flex;
+    display: block;
     //align-content: center;
     position: center;
     //box-sizing: border-box;
     justify-content: center;
-    margin: 8em;
+    // margin: 8em;
   }
   legend{
     font-family: $roboto;

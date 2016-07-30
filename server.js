@@ -11,6 +11,8 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
 // var querystring = require('querystring');
+var passport = require('passport');
+var BasicStrategy = require('passport-http').BasicStrategy;
 
 var Gallery = require('./Gallery');
 var Form = require('./Form');
@@ -25,11 +27,22 @@ app.use(methodOverride(function(req, res){
   }
 }));
 
+
 // allows you to save value to your configuration.
 app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(express.static('public'));
+
+var user = { username: 'bob', password: 'secret', email: 'bob@example.com' };
+passport.use(new BasicStrategy(
+  function(username, password, done) {
+    // Example authentication strategy using 
+    if ( !(username === user.username && password === user.password) ) {
+      return done(null, false);
+    }
+    return done(null, user);
+}));
 
 app.get('/', function (req, res) {
   // get is the rendering of the page.
@@ -47,15 +60,16 @@ app.get('/', function (req, res) {
   });
 });
 
-app.get('/gallery/new', function (req, res, next) {
-  // db.photo.update().then( function (form) { 
+app.get('/gallery/new',
+  passport.authenticate('basic', { session: false }),
+  function(req, res) {
+    // res.json(req.user);
     res.render('form');
-  // });
 });
 
 app.get('/gallery/:id', function (req, res) {
   // var id = req.params.id;
-  //var id = photos.id;
+  // var id = photos.id;
   // console.log(id);
 
   // Gallery.find(id, function (err, gallery) {
@@ -73,9 +87,9 @@ app.get('/gallery/:id', function (req, res) {
       id: req.params.id
     }
   })
-  .then(function(photo) {
-    res.render('gallery', {photo: photo});
-  })
+    .then(function(photo) {
+      res.render('gallery', {photo: photo});
+    });
   // .then(id, function (err, gallery) {
   //   if (err) {
   //     res.send(err);
@@ -108,11 +122,22 @@ app.post('/gallery', function (req, res) {
   });
 });
 
-// app.put('/gallery/:id', function (req, res) {
+// Authenticate Use
+// app.use(passport.authenticate('basic', { session: false }));
+
+// app.put('/gallery/:id',
+//  passport.authenticate('basic', { session: false }),
+//   function(req, res) {
+//     // res.json(req.user);
+//     res.render('gallery');
 //   res.send('');
 // });
 
 // app.delete('/gallery/:id', function (req, res) {
+//   passport.authenticate('basic', { session: false }),
+//   function(req, res) {
+//     // res.json(req.user);
+//     res.render('gallery');
 //   res.send('Delete');
 // });
 
