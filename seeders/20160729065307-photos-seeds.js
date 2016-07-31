@@ -68,9 +68,7 @@ module.exports = {
     "url": "http://www.textbooktravel.com/wp-content/uploads/2015/01/Web2-Abisko-National-Park-Northern-Lights.jpg",
     createdAt: new Date(),
     updatedAt: new Date()
-  }
-],{
-
+  }],{
     })
   },
 
