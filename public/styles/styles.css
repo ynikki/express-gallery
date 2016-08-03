@@ -66,33 +66,33 @@ table {
   display: block; }
 
 /* close commented backslash hack */
-body .page-wrap {
+.page-wrap {
   display: block;
   margin: 5em 20% 5em 20%;
   align-content: space-between; }
 
-body .contain {
+.contain {
   margin-top: 1em;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between; }
 
-body .dash {
+.dash {
   border: 0 none;
   border-top: 1px dotted #c7c7c7;
   background: none;
   height: 0; }
   @media (min-width: 100px) and (max-width: 600px) {
-    body .dash {
+    .dash {
       display: none; } }
 
-body .firstLine, body .secondLine, body .thirdLine {
+.firstLine, .secondLine, .thirdLine {
   border: 0 none;
   border-top: 1px solid #c7c7c7;
   background: none;
   height: 0; }
 
-body .header {
+.header {
   font-family: "Roboto", sans-serif;
   color: #7d787e;
   font-weight: 500;
@@ -102,7 +102,7 @@ body .header {
   flex: 1 1 auto;
   float: left; }
 
-body .paraIntro {
+.paraIntro {
   height: 5em;
   width: 14em;
   line-height: .7em;
@@ -110,84 +110,83 @@ body .paraIntro {
   flex: 0 0 auto;
   float: right; }
   @media screen and (max-width: 1045px) {
-    body .paraIntro {
+    .paraIntro {
       display: none; } }
   @media (min-width: 100px) and (max-width: 600px) {
-    body .paraIntro {
+    .paraIntro {
       display: none; } }
 
-body .intro {
+.intro {
   font-family: "Roboto", sans-serif;
   font-size: .15em;
   color: #c7c7c7;
   border-left: 0.1em solid #c7c7c7;
   padding-left: 1em; }
   @media (min-width: 100px) and (max-width: 600px) {
-    body .intro {
+    .intro {
       display: none; } }
 
-body .mainImg {
+.mainImg {
   margin-top: 1em; }
 
-body .multImg {
+.multImg {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between; }
 
-body .gallery_post {
+.gallery_post {
   width: 300px; }
 
-body .bottomMultiImg {
+.bottomMultiImg {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between; }
 
-body .gallery_posttwo {
+.gallery_posttwo {
   width: 300px; }
 
-body .contentImg {
+.contentImg {
   display: flex;
   box-sizing: border-box;
   margin-top: 2em;
   justify-content: center; }
 
-body img {
+img {
   width: 100%; }
 
-body .imgDescrip {
+.imgDescrip {
   font-family: "Roboto", sans-serif;
   color: #c7c7c7;
   font-size: .8em;
   margin: 2em; }
 
-body .formDescrip {
-  display: flex;
+.formDescrip {
+  display: block;
   position: center;
-  justify-content: center;
-  margin: 8em; }
+  justify-content: center; }
 
-body legend {
+legend {
   font-family: "Roboto", sans-serif;
   font-size: 1.5em;
   color: #c7c7c7;
   margin-bottom: .3em; }
 
-body label {
+label {
   font-family: "Roboto", sans-serif;
   font-size: .8em;
   color: #c7c7c7; }
 
-body input {
+input {
   margin-bottom: .1em; }
 
-body .name, body .link {
+.name, .link {
   font-family: "Roboto", sans-serif;
   font-size: .9em;
   color: #c7c7c7;
   height: 2em;
   width: 50em; }
 
-body .description {
+.description {
   font-family: "Roboto", sans-serif;
   font-size: .9em;
   color: #c7c7c7;
@@ -195,7 +194,7 @@ body .description {
   vertical-align: top;
   width: 100%; }
 
-body .submit {
+.submit {
   font-family: "Roboto", sans-serif;
   font-size: 1em;
   color: #c7c7c7;
@@ -204,6 +203,10 @@ body .submit {
   border-radius: .2em;
   background-color: #fff; }
 
-body .submit:hover {
+.submit:hover {
   background-color: #c7c7c7;
   color: #fff; }
+
+.login {
+  margin: 4em;
+  width: 100%; }

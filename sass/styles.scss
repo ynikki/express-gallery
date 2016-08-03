@@ -32,163 +32,183 @@ $para-color: #c7c7c7;
 }
 
 body {
-  .page-wrap{
-    display: block;
-    margin: 5em 20% 5em 20%;
-    align-content: space-between;
-  }
-  .contain{
-    margin-top: 1em;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-  }
-  .dash{
-    border: 0 none;
-    border-top: 1px dotted $para-color;
-    background: none;
-    height: 0;
+}
+.page-wrap{
+  display: block;
+  margin: 5em 20% 5em 20%;
+  align-content: space-between;
+}
+.contain{
+  margin-top: 1em;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+.dash{
+  border: 0 none;
+  border-top: 1px dotted $para-color;
+  background: none;
+  height: 0;
 
-    @include small{
-      display: none;
-    }
+  @include small{
+    display: none;
   }
-  .firstLine, .secondLine, .thirdLine{
-    border: 0 none;
-    border-top: 1px solid $para-color;
-    background: none;
-    height: 0;
-  }
-  .header{
-    font-family: $roboto;
-    color: $header-color;
-    font-weight: 500;
-    font-size: 4em;
-    letter-spacing: .05em;
-    box-sizing: border-box;
-    flex: 1 1 auto;
-    float: left;
+}
+.firstLine, .secondLine, .thirdLine{
+  border: 0 none;
+  border-top: 1px solid $para-color;
+  background: none;
+  height: 0;
+}
+.header{
+  font-family: $roboto;
+  color: $header-color;
+  font-weight: 500;
+  font-size: 4em;
+  letter-spacing: .05em;
+  box-sizing: border-box;
+  flex: 1 1 auto;
+  float: left;
 
-    @media screen and (max-width:1045px) {
-    }
+  @media screen and (max-width:1045px) {
   }
-  .paraIntro{
-    height: 5em;
-    width: 14em;
-    line-height: .7em;
-    box-sizing: border-box;
-    flex: 0 0 auto;
-    float: right;
+}
+.paraIntro{
+  height: 5em;
+  width: 14em;
+  line-height: .7em;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  float: right;
 
-    @media screen and (max-width:1045px) {
-      display: none;
-    }
+  @media screen and (max-width:1045px) {
+    display: none;
+  }
 
-    @include small{
-      display: none;
-    }
+  @include small{
+    display: none;
   }
-  .intro{
-    font-family: $roboto;
-    font-size: .15em;
-    color: $para-color;
-    border-left: .1em solid $para-color;
-    padding-left: 1em;
+}
+.intro{
+  font-family: $roboto;
+  font-size: .15em;
+  color: $para-color;
+  border-left: .1em solid $para-color;
+  padding-left: 1em;
 
-    @include small{
-      display: none; 
-    }
+  @include small{
+    display: none; 
   }
-  .mainImg{
-    margin-top: 1em;
+}
+.mainImg{
+  margin-top: 1em;
+}
+.multImg{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+.gallery_post{
+  width: 300px;
+}
+.bottomMultiImg{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+.gallery_posttwo{
+  width: 300px;
+}
+.contentImg{
+  //padding: 3em;
+  display: flex;
+  box-sizing: border-box;
+  // align-self: flex-start;
+  // align-items: center;
+  // justify-content: center;
+  margin-top: 2em;
+  justify-content: center;
+}
+img{
+  width: 100%;
+}
+.imgDescrip{
+  font-family: $roboto;
+  color: $para-color;
+  font-size: .8em;
+  margin: 2em;
+}
+.formDescrip{
+  display: flex;
+  // position: center;
+  justify-content: center;
+  margin-top: 2em;
+}
+legend{
+  font-family: $roboto;
+  font-size: 1.5em;
+  color: $para-color;
+  margin-bottom: .3em;
+}
+label{
+  font-family: $roboto;
+  font-size: .8em;
+  color: $para-color;
+}
+input{
+  margin-bottom: .1em;
+}
+.name, .link{
+  font-family: $roboto;
+  font-size: 1em;
+  color: $para-color;
+  height: 2em;
+  width: 80%;
+} 
+.description{
+  font-family: $roboto;
+  font-size: 1em;
+  color: $para-color;
+  height: 6em;
+  // width: 50em;
+  overflow: auto;
+  vertical-align: top;
+  width: 80%;
+  padding: .3em;
+}
+.submit{
+  font-family: $roboto;
+  font-size: 1em;
+  color: $para-color;
+  width: 82%;
+  height: 2em;
+  border-radius: .2em;
+  background-color: #fff;
+
+  @include small{
+    width: 83%;
   }
-  .multImg{
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-  }
-  .gallery_post{
-    width: 300px;
-  }
-  .bottomMultiImg{
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-  }
-  .gallery_posttwo{
-    width: 300px;
-  }
-  .contentImg{
-    //padding: 3em;
-    display: flex;
-    box-sizing: border-box;
-    // align-self: flex-start;
-    // align-items: center;
-    // justify-content: center;
-    margin-top: 2em;
-    justify-content: center;
-  }
-  img{
-    width: 100%;
-  }
-  .imgDescrip{
-    font-family: $roboto;
-    color: $para-color;
-    font-size: .8em;
-    margin: 2em;
-  }
-  .formDescrip{
-    display: block;
-    //align-content: center;
-    position: center;
-    //box-sizing: border-box;
-    justify-content: center;
-    // margin: 8em;
-  }
-  legend{
-    font-family: $roboto;
-    font-size: 1.5em;
-    color: $para-color;
-    margin-bottom: .3em;
-  }
-  label{
-    font-family: $roboto;
-    font-size: .8em;
-    color: $para-color;
-  }
-  input{
-    margin-bottom: .1em;
-  }
-  .name, .link{
-    font-family: $roboto;
-    font-size: .9em;
-    color: $para-color;
-    height: 2em;
-    width: 50em;
-  } 
-  .description{
-    font-family: $roboto;
-    font-size: .9em;
-    color: $para-color;
-    // height: 6em;
-    // width: 50em;
-    overflow: auto;
-    vertical-align: top;
-    width: 100%;
-  }
-  textarea{
-  }
-  .submit{
-    font-family: $roboto;
-    font-size: 1em;
-    color: $para-color;
-    width: 36.5em;
-    height: 2em;
-    border-radius: .2em;
-    background-color: #fff;
-  }
-  .submit:hover{
-    background-color: $para-color;
-    color: #fff;
-  }
+}
+.submit:hover{
+  background-color: $para-color;
+  color: #fff;
+}
+.login{
+  justify-content: center;
+}
+.loginForm{
+  margin-top: 4em;
+  width: 465px;
+}
+.login-modal{
+  padding: 36px;
+  border-radius: 3px;
+  border: 1px solid $para-color;
+}
+.username, .password{
+  font-size: .8em;
+  width: 80%;
+  height: 2em;
+  margin-bottom: .5em;
+  padding: .3em;
 }

@@ -1,16 +1,16 @@
 var db = require('./models');
 var CONFIG = require('./config');
-var DB_CONFIG = require('./config/config');
+var DB_CONFIG = require('./config/config.json')
 
 var pug = require('pug');
 var express = require('express');
 var app = express();
-var gallery = require('./routes/gallery');
 var path = require('path'); // absolute path.
 var util = require('util');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
 
 // var querystring = require('querystring');
 // var passport = require('passport');
@@ -22,7 +22,6 @@ var passport = require('passport')
 var Gallery = require('./Gallery');
 var Form = require('./Form');
 
-
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(methodOverride(function(req, res){
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
@@ -33,71 +32,33 @@ app.use(methodOverride(function(req, res){
   }
 }));
 
-passport.serializeUser(function(user, done) {
-  // user is passed in from local strategy.
-  // user is attached to req.user.
-  done(null, user); // this gets saved into the session store
-});
-
-passport.deserializeUser(function(userId, done) {
-  // deserializeUser finds the user.
-  var user = null;
-  // Find the user before you invoke done.
-  if (userId === 1){
-    user = {
-      
-    }
-  }
-  // This becomes your req.user.
-  done(null, user);
-});
-
-function isAuthenticated (req, res, next) {
-  if(!req.isAuthenticated()){
-    return res.redirect('/login');
-  }
-  return next();
-}
-
-app.get('/secret', function (req, res) {
-
-});
-
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-  var USERNAME = DB_CONFIG.SECRETS.USERNAME;
-  var PASSWORD = DB_CONFIG.SECRETS.PASSWORD;
-  var isAuthenticated = authenticate(username, password);
-   if (username === USERNAME && password === PASSWORD) {
-    return done(null, {});
-   }
-   Users.findOne({
-    username = username,
-    password = password
-    // if successful or Found
-    // return done
-    /// else
-    // redirect or return false
-   }).then(function(response) {
-
-   });
-  }
-));
-
 app.use(passport.initialize());
 app.use(passport.session({
+  store: new RedisStore(),
   secret: CONFIG.SESSION.secret,
   saveUninitialized: false,
   resave: true
 }));
 
-// allows you to save value to your configuration.
-app.set('views', path.resolve(__dirname, 'views'));
-app.set('view engine', 'pug');
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+  // var USERNAME = CONFIG.SECRET.username;
+  // var PASSWORD = CONFIG.SECRET.password;
+  var isAuthenticated = authenticate(username, password);
+   // if (username === USERNAME && password === PASSWORD) {
+   //  return done(null, {});
+   // }
+   if(!isAuthenticated){
+    return done(null, false);
+   }
+    var user = {
+      username: username, 
+      password: password
+    }
+    return done(null, user);
+  }
+));
 
-app.use(express.static('public'));
-
-// var user = { username: 'bob', password: 'secret', email: 'bob@example.com' };
 // passport.use(new BasicStrategy(
 //   function(username, password, done) {
 //     // Example authentication strategy using 
@@ -106,6 +67,28 @@ app.use(express.static('public'));
 //     }
 //     return done(null, user);
 // }));
+
+passport.serializeUser(function(user, done) {
+  // user is passed in from local strategy.
+  // user is attached to req.user.
+  done(null, user); 
+  // this gets saved into the session store
+});
+
+passport.deserializeUser(function(id, done) {
+  // deserializeUser finds the user.
+  var user = null;
+  // Find the user before you invoke done.
+  // This becomes your req.user.
+  done(null, user);
+});
+
+// allows you to save value to your configuration.
+app.set('views', path.resolve(__dirname, 'views'));
+app.set('view engine', 'pug');
+
+app.use(express.static('public'));
+
 
 app.get('/', function (req, res) {
   // get is the rendering of the page.
@@ -127,14 +110,38 @@ app.get('/login', function (req, res) {
   res.render('login');
 });
 
-app.get('/secret', function (req, res) {
-  res.render('secret');
-});
 
 app.post('/login', passport.authenticate('local', {
   successRedirect: '/secret',
-  failureRedirect: '/login'
+  failureRedirect: '/login',
 }));
+
+function authenticate (username, password) {
+  var CREDENTIALS = db.users;
+  console.log(CREDENTIALS);
+  var USERNAME = CREDENTIALS.username;
+  console.log(USERNAME);
+  var PASSWORD = CREDENTIALS.password;
+  console.log(PASSWORD);
+
+  return (username === USERNAME && 
+          password === PASSWORD
+    )
+}
+
+function isAuthenticated (req, res, next) {
+  if(!req.isAuthenticated()){
+    return res.redirect('/login');
+  }
+  return next();
+}
+
+app.get('/secret', function (req, res) {
+  isAuthenticated,
+  function (req, res) {
+    res.render('secret', {role: req.user.role.toLowerCase()});
+  }
+});
 
 app.get('/gallery/new',
   // passport.authenticate('basic', { session: false }),
@@ -157,14 +164,15 @@ app.get('/gallery/:id', function (req, res) {
   //     res.send(new Error('Gallery not found for this id.'));
   //   }
   // });  
-  // db.photo.findAll()
   db.photo.findOne({
     where: {
       id: req.params.id
     }
   })
     .then(function(photo) {
-      res.render('gallery', {photo: photo});
+      if (photo) {
+        res.render('gallery', {photo: photo});
+      }
     });
   // .then(id, function (err, gallery) {
   //   if (err) {
